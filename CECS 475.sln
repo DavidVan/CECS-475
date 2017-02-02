@@ -3,11 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Project 1", "Project 1", "{D12A0524-3F80-4867-9723-02EA8F1090A1}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lab 1", "Lab 1", "{D12A0524-3F80-4867-9723-02EA8F1090A1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CB08E409-EBFC-4318-82B6-14D61C4242E8}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Cecs475.Poker.Core", "Project 1\src\Cecs475.Poker.Core\Cecs475.Poker.Core.xproj", "{A3D8FB42-40FD-4303-A30A-6EBC928BDB21}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{27A1A638-A1CA-4EF6-A274-181530D4AEC1}"
 EndProject
@@ -16,7 +14,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		global.json = global.json
 	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Cecs475.Poker.Test", "Project 1\test\Cecs475.Poker.Test\Cecs475.Poker.Test.xproj", "{0F983D1B-F9B4-4337-BDB4-C764B04A804F}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Cecs475.Poker.Core", "Lab 1\src\Cecs475.Poker.Core\Cecs475.Poker.Core.xproj", "{A3D8FB42-40FD-4303-A30A-6EBC928BDB21}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Cecs475.Poker.Test", "Lab 1\test\Cecs475.Poker.Test\Cecs475.Poker.Test.xproj", "{0F983D1B-F9B4-4337-BDB4-C764B04A804F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,8 +38,8 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{CB08E409-EBFC-4318-82B6-14D61C4242E8} = {D12A0524-3F80-4867-9723-02EA8F1090A1}
-		{A3D8FB42-40FD-4303-A30A-6EBC928BDB21} = {CB08E409-EBFC-4318-82B6-14D61C4242E8}
 		{27A1A638-A1CA-4EF6-A274-181530D4AEC1} = {D12A0524-3F80-4867-9723-02EA8F1090A1}
+		{A3D8FB42-40FD-4303-A30A-6EBC928BDB21} = {CB08E409-EBFC-4318-82B6-14D61C4242E8}
 		{0F983D1B-F9B4-4337-BDB4-C764B04A804F} = {27A1A638-A1CA-4EF6-A274-181530D4AEC1}
 	EndGlobalSection
 EndGlobal
