@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cecs475.BoardGames</name>
+    </assembly>
+    <members>
+        <member name="T:Cecs475.BoardGames.BoardPosition">
+            <summary>
+            Represents a row/column position on a 2D grid board.
+            </summary>
+        </member>
+        <member name="P:Cecs475.BoardGames.BoardPosition.Row">
+            <summary>
+            The row of the position.
+            </summary>
+        </member>
+        <member name="P:Cecs475.BoardGames.BoardPosition.Col">
+            <summary>
+            The column of the position.
+            </summary>
+        </member>
+        <member name="M:Cecs475.BoardGames.BoardPosition.Translate(System.Int32,System.Int32)">
+            <summary>
+            Translates the BoardPosition by the given amount in the row and column directions, returning a new
+            position.
+            </summary>
+            <param name="rDelta">the amount to change the new position's row by</param>
+            <param name="cDelta">the amount to change the new position's column by</param>
+            <returns>a new BoardPosition object that has been translated from the source</returns>
+        </member>
+        <member name="M:Cecs475.BoardGames.BoardPosition.Equals(Cecs475.BoardGames.BoardPosition)">
+            <summary>
+            Two board positions are equal if they have the same row and column.
+            </summary>
+            <param name="other"></param>
+        </member>
+        <member name="T:Cecs475.BoardGames.IGameBoard">
+            <summary>
+            Represents the board model for a particular board game. Can apply moves, get all possible moves, undo moves,
+            and report other state information. 
+            </summary>
+        </member>
+        <member name="M:Cecs475.BoardGames.IGameBoard.GetPossibleMoves">
+            <summary>
+            Gets a list of all possible moves for the current game state.
+            </summary>
+        </member>
+        <member name="M:Cecs475.BoardGames.IGameBoard.ApplyMove(Cecs475.BoardGames.IGameMove)">
+            <summary>
+            Applies a valid move to the current game state.
+            </summary>
+            <param name="move">assumed to be a valid move from the possible moves list</param>
+        </member>
+        <member name="M:Cecs475.BoardGames.IGameBoard.UndoLastMove">
+            <summary>
+            Undoes the most recent move, restoring the game state to the moment when the move was applied.
+            </summary>
+        </member>
+        <member name="P:Cecs475.BoardGames.IGameBoard.CurrentPlayer">
+            <summary>
+            The player whose turn it currently is.
+            </summary>
+        </member>
+        <member name="P:Cecs475.BoardGames.IGameBoard.MoveHistory">
+            <summary>
+            A list of all moves applied to the game, in order.
+            </summary>
+        </member>
+        <member name="P:Cecs475.BoardGames.IGameBoard.Value">
+            <summary>
+            A value indicating which player is winning the game, in a game-specific way. Positive is player 1.
+            </summary>
+        </member>
+        <member name="T:Cecs475.BoardGames.IGameMove">
+            <summary>
+            Represents one move that can be or will be applied to a particular IGameBoard implementation.
+            </summary>
+        </member>
+        <member name="T:Cecs475.BoardGames.IGameView">
+            <summary>
+            Represents a console text-based view of a game.
+            </summary>
+        </member>
+        <member name="M:Cecs475.BoardGames.IGameView.PrintView(System.IO.TextWriter,Cecs475.BoardGames.IGameBoard)">
+            <summary>
+            Prints a text representation of the given board to the given TextWriter output.
+            </summary>
+        </member>
+        <member name="M:Cecs475.BoardGames.IGameView.ParseMove(System.String)">
+            <summary>
+            Parses a string representation of a game move.
+            </summary>
+        </member>
+        <member name="M:Cecs475.BoardGames.IGameView.GetPlayerString(System.Int32)">
+            <summary>
+            Gets a string representing the given player appropriate to the particular game.
+            </summary>
+        </member>
+    </members>
+</doc>
