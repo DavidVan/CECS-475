@@ -7,10 +7,23 @@
         mc:Ignorable="d"
         Title="Othello!" Width="500">
     <DockPanel>
+        <ToolBar Height="30" DockPanel.Dock="Top" FontSize="10" DataContext="{Binding ElementName=OthelloView}">
+            <Button Name="UndoButton" Click="UndoButton_Click" IsEnabled="{Binding Model.CanUndo}">
+                Undo
+            </Button>
+        </ToolBar>
         <StatusBar Height="30" DockPanel.Dock="Bottom" FontSize="10" DataContext="{Binding ElementName=OthelloView}">
+            <StatusBar.Resources>
+                <local:BoardScoreConverter x:Key="BoardScoreConverter"/>
+            </StatusBar.Resources>
             <WrapPanel>
                 <Label>Score:</Label>
-                <Label Content="{Binding Model.BoardValue}"/>
+                <Label Content="{Binding Model.BoardValue, Converter={StaticResource BoardScoreConverter}}"/>
+            </WrapPanel>
+            <Label> | </Label>
+            <WrapPanel>
+                <Label>Player:</Label>
+                <Label Content="{Binding Model.CurrentPlayer}"/>
             </WrapPanel>
         </StatusBar>
         <local:OthelloView x:Name="OthelloView"/>

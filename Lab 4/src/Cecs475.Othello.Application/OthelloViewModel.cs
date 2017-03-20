@@ -72,8 +72,10 @@ namespace Cecs475.Othello.Application {
 				mSquares[i].Player = mBoard.GetPieceAtPosition(pos);
 				i++;
 			}
-			OnPropertyChanged(nameof(BoardValue));
-		}
+         OnPropertyChanged(nameof(BoardValue));
+         OnPropertyChanged(nameof(CurrentPlayer));
+         OnPropertyChanged(nameof(CanUndo));
+      }
 
 		public ObservableCollection<OthelloSquare> Squares {
 			get { return mSquares; }
@@ -85,5 +87,40 @@ namespace Cecs475.Othello.Application {
 
 		public int BoardValue { get { return mBoard.Value; } }
 
+      public string CurrentPlayer {
+         get {
+            if (mBoard.CurrentPlayer == 1) {
+               return "Black";
+            }
+            else {
+               return "White";
+            }
+         }
+      }
+
+      public bool CanUndo {
+         get {
+            return mBoard.MoveHistory.Count() > 0;
+         }
+      }
+
+      public void UndoLastMove() {
+         mBoard.UndoLastMove();
+
+         PossibleMoves = new HashSet<BoardPosition>(mBoard.GetPossibleMoves().Select(m => m.Position));
+         var newSquares =
+            from r in Enumerable.Range(0, 8)
+            from c in Enumerable.Range(0, 8)
+            select new BoardPosition(r, c);
+         int i = 0;
+         foreach (var pos in newSquares) {
+            mSquares[i].Player = mBoard.GetPieceAtPosition(pos);
+            i++;
+         }
+
+         OnPropertyChanged(nameof(BoardValue));
+         OnPropertyChanged(nameof(CurrentPlayer));
+         OnPropertyChanged(nameof(CanUndo));
+      }
 	}
 }
