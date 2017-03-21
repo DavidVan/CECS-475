@@ -20,13 +20,13 @@
                 <Label>Score:</Label>
                 <Label Content="{Binding Model.BoardValue, Converter={StaticResource BoardScoreConverter}}"/>
             </WrapPanel>
-            <Label> | </Label>
+            <Label>|</Label>
             <WrapPanel>
                 <Label>Player:</Label>
                 <Label Content="{Binding Model.CurrentPlayer}"/>
             </WrapPanel>
         </StatusBar>
         <local:OthelloView x:Name="OthelloView"/>
-        
+
     </DockPanel>
 </Window>
