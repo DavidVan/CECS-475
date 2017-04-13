@@ -407,13 +407,12 @@ namespace Cecs475.BoardGames.Chess {
             }
 
             if (pos.Row == 6) { // Pawn still in starting location. It has two possible moves.
-               if (PositionInBounds(pos.Translate(-1, 0)) && GetPieceAtPosition(pos.Translate(-1, 0)).PieceType == ChessPieceType.Empty) {
+               if (PositionInBounds(pos.Translate(-1, 0)) && GetPieceAtPosition(pos.Translate(-1, 0)).PieceType == ChessPieceType.Empty
+                     && PositionInBounds(pos.Translate(-2, 0)) && GetPieceAtPosition(pos.Translate(-2, 0)).PieceType == ChessPieceType.Empty) {
                   ChessMove upOne = new ChessMove(pos, pos.Translate(-1, 0));
                   upOne.Piece = GetPieceAtPosition(pos);
                   upOne.Captured = GetPieceAtPosition(pos.Translate(-1, 0)); // Should be empty.
                   moves.Add(upOne); // Up One
-               }
-               if (PositionInBounds(pos.Translate(-2, 0)) && GetPieceAtPosition(pos.Translate(-2, 0)).PieceType == ChessPieceType.Empty) {
                   ChessMove upTwo = new ChessMove(pos, pos.Translate(-2, 0));
                   upTwo.Piece = GetPieceAtPosition(pos);
                   upTwo.Captured = GetPieceAtPosition(pos.Translate(-2, 0)); // Should be empty.
@@ -456,13 +455,12 @@ namespace Cecs475.BoardGames.Chess {
             }
 
             if (pos.Row == 1) { // Pawn still in starting location. It has two possible moves.
-               if (PositionInBounds(pos.Translate(1, 0)) && GetPieceAtPosition(pos.Translate(1, 0)).PieceType == ChessPieceType.Empty) {
+               if (PositionInBounds(pos.Translate(1, 0)) && GetPieceAtPosition(pos.Translate(1, 0)).PieceType == ChessPieceType.Empty
+                     && PositionInBounds(pos.Translate(2, 0)) && GetPieceAtPosition(pos.Translate(2, 0)).PieceType == ChessPieceType.Empty) {
                   ChessMove downOne = new ChessMove(pos, pos.Translate(1, 0));
                   downOne.Piece = GetPieceAtPosition(pos);
                   downOne.Captured = GetPieceAtPosition(pos.Translate(1, 0)); // Should be empty.
-                  moves.Add(downOne); // Down One
-               }
-               if (PositionInBounds(pos.Translate(2, 0)) && GetPieceAtPosition(pos.Translate(2, 0)).PieceType == ChessPieceType.Empty) {
+                  moves.Add(downOne); // Down On
                   ChessMove downTwo = new ChessMove(pos, pos.Translate(2, 0));
                   downTwo.Piece = GetPieceAtPosition(pos);
                   downTwo.Captured = GetPieceAtPosition(pos.Translate(2, 0)); // Should be empty.
