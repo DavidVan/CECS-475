@@ -103,6 +103,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Cecs475.BoardGames.Chess.View\Cecs475.BoardGames.Chess.View.csproj">
+      <Project>{c55dd612-1d3e-4d90-8b6f-c4d00cf71a62}</Project>
+      <Name>Cecs475.BoardGames.Chess.View</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Cecs475.BoardGames.Model\Cecs475.BoardGames.Model.csproj">
       <Project>{db6cb6d2-3aef-4671-873a-79c8ed63d4d5}</Project>
       <Name>Cecs475.BoardGames.Model</Name>

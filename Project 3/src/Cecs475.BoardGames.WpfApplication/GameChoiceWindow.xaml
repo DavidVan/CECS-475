@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cecs475.BoardGames.WpfApplication"
         xmlns:view="clr-namespace:Cecs475.BoardGames.View;assembly=Cecs475.BoardGames.View"
+        xmlns:chess="clr-namespace:Cecs475.BoardGames.Chess.View;assembly=Cecs475.BoardGames.Chess.View"
         xmlns:othello="clr-namespace:Cecs475.BoardGames.Othello.View;assembly=Cecs475.BoardGames.Othello.View"
         xmlns:tictactoe="clr-namespace:Cecs475.BoardGames.TicTacToe.View;assembly=Cecs475.BoardGames.TicTacToe.View"
         mc:Ignorable="d"
@@ -12,6 +13,7 @@
         SizeToContent="Height" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <x:Array x:Key="GameTypes" Type="{x:Type view:IGameType}">
+            <chess:ChessGameType />
             <othello:OthelloGameType />
             <tictactoe:TicTacToeGameType />
         </x:Array>
