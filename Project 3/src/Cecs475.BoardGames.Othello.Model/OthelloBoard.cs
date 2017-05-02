@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Cecs475.BoardGames.Othello {
    /// <summary>
@@ -236,7 +237,6 @@ namespace Cecs475.BoardGames.Othello {
             mBoard[m.Position.Row, m.Position.Col] = 0;
             Value += mCurrentPlayer;
             Weight += mCurrentPlayer * mWeights[m.Position.Row, m.Position.Col];
-
 
             // Iterate through the move's recorded flipsets.
             foreach (var flipSet in m.FlipSets) {

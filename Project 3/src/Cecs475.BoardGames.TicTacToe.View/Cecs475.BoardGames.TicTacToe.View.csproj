@@ -54,14 +54,8 @@
     <Compile Include="TicTacToeViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="TicTacToeView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Cecs475.BoardGames.ComputerOpponent\Cecs475.BoardGames.ComputerOpponent.csproj">
-      <Project>{aa92c604-216c-462a-afd1-b51acd4d7625}</Project>
+      <Project>{AA92C604-216C-462A-AFD1-B51ACD4D7625}</Project>
       <Name>Cecs475.BoardGames.ComputerOpponent</Name>
     </ProjectReference>
     <ProjectReference Include="..\Cecs475.BoardGames.Model\Cecs475.BoardGames.Model.csproj">
@@ -76,6 +70,12 @@
       <Project>{06da1cf1-6ccb-477a-ae70-413693d01d6d}</Project>
       <Name>Cecs475.BoardGames.View</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="TicTacToeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

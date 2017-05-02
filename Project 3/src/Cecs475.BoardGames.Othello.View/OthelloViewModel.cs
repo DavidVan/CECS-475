@@ -49,11 +49,10 @@ namespace Cecs475.BoardGames.Othello.View {
 
       public event PropertyChangedEventHandler PropertyChanged;
       public event EventHandler GameFinished;
-
       /// <summary>
-		/// Invoked after applying a move, if the new current player must pass their turn.
-		/// </summary>
-		public event EventHandler CurrentPlayerMustPass;
+      /// Invoked after applying a move, if the new current player must pass their turn.
+      /// </summary>
+      public event EventHandler CurrentPlayerMustPass;
 
       private void OnPropertyChanged(string name) {
          PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
@@ -81,7 +80,6 @@ namespace Cecs475.BoardGames.Othello.View {
 
       public void UndoMove() {
          mBoard.UndoLastMove();
-
          // In one-player mode, Undo has to remove an additional move to return to the
          // human player's turn.
          if (Players == NumberOfPlayers.One) {
@@ -171,5 +169,7 @@ namespace Cecs475.BoardGames.Othello.View {
             return mBoard.MoveHistory.Count > 0;
          }
       }
+
+
    }
 }

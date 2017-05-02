@@ -15,28 +15,29 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 namespace Cecs475.BoardGames.WpfApplication {
-   /// <summary>
-   /// Interaction logic for GameChoiceWindow.xaml
-   /// </summary>
-   public partial class GameChoiceWindow : Window {
-      public GameChoiceWindow() {
-         InitializeComponent();
-      }
+	/// <summary>
+	/// Interaction logic for GameChoiceWindow.xaml
+	/// </summary>
+	public partial class GameChoiceWindow : Window {
+		public GameChoiceWindow() {
+			InitializeComponent();
+		}
 
-      private void Button_Click(object sender, RoutedEventArgs e) {
-         Button b = sender as Button;
-         IGameType gameType = b.DataContext as IGameType;
-         var gameWindow = new MainWindow(gameType, mHumanBtn.IsChecked.Value ? NumberOfPlayers.Two : NumberOfPlayers.One) {
-            Title = gameType.GameName
-         };
-         gameWindow.Closed += GameWindow_Closed;
-         gameWindow.Show();
+		private void Button_Click(object sender, RoutedEventArgs e) {
+			Button b = sender as Button;
+			IGameType gameType = b.DataContext as IGameType;
+			var gameWindow = new MainWindow(gameType, 
+				mHumanBtn.IsChecked.Value ? NumberOfPlayers.Two : NumberOfPlayers.One) {
+				Title = gameType.GameName
+			};
+			gameWindow.Closed += GameWindow_Closed;
 
-         this.Hide();
-      }
+			gameWindow.Show();
+			this.Hide();
+		}
 
-      private void GameWindow_Closed(object sender, EventArgs e) {
-         this.Show();
-      }
-   }
+		private void GameWindow_Closed(object sender, EventArgs e) {
+			this.Show();
+		}
+	}
 }

@@ -52,6 +52,12 @@ namespace Cecs475.BoardGames.Othello.View {
 			if (vm.PossibleMoves.Contains(square.Position)) {
 				vm.ApplyMove(square.Position);
 				square.IsHovered = false;
+				if (vm.PossibleMoves.Count == 1 && vm.PossibleMoves.First().Row == -1) {
+					// This is a Pass move. Auto-apply the move and inform the user.
+					MessageBox.Show((vm.CurrentPlayer == 1 ? "Black " : "White ") +
+						" has no move and must pass.", "No possible moves", MessageBoxButton.OK);
+					vm.ApplyMove(vm.PossibleMoves.First());
+				}
 			}
 		}
 	}

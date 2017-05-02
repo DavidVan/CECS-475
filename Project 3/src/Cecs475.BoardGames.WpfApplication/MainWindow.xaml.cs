@@ -15,50 +15,46 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Cecs475.BoardGames.WpfApplication {
-   /// <summary>
-   /// Interaction logic for MainWindow.xaml
-   /// </summary>
-   public partial class MainWindow : Window {
-      public MainWindow(IGameType gameType, NumberOfPlayers players) {
-         var viewAndViewModel = gameType.CreateViewAndViewModel(players);
-         this.Resources.Add("GameView", viewAndViewModel.Item1);
-         this.Resources.Add("ViewModel", viewAndViewModel.Item2);
+	/// <summary>
+	/// Interaction logic for MainWindow.xaml
+	/// </summary>
+	public partial class MainWindow : Window {
+		public MainWindow(IGameType gameType, NumberOfPlayers players) {
+			var viewAndViewModel = gameType.CreateViewAndViewModel(players);
+			this.Resources.Add("GameView", viewAndViewModel.Item1);
+			this.Resources.Add("ViewModel", viewAndViewModel.Item2);
 
-         InitializeComponent();
+			InitializeComponent();
 
-         // Bind the Score label to the BoardValue of the ViewModel.
-         mScoreLabel.SetBinding(Label.ContentProperty,
-            new Binding() {
-               Path = new PropertyPath("BoardValue"),
-               Converter = gameType.CreateBoardValueConverter()
-            }
-         );
+			mScoreLabel.SetBinding(Label.ContentProperty,
+				new Binding() {
+					Path = new PropertyPath("BoardValue"),
+					Converter = gameType.CreateBoardValueConverter()
+				}
+			);
 
-         // Bind the Player label to the CurrentPlayer of the ViewModel.
-         mPlayerLabel.SetBinding(Label.ContentProperty,
-            new Binding() {
-               Path = new PropertyPath("CurrentPlayer"),
-               Converter = gameType.CreateCurrentPlayerConverter()
-            }
-         );
+			mPlayerLabel.SetBinding(Label.ContentProperty,
+				new Binding() {
+					Path = new PropertyPath("CurrentPlayer"),
+					Converter = gameType.CreateCurrentPlayerConverter()
+				}
+			);
+			viewAndViewModel.Item2.GameFinished += ViewModel_GameFinished;
+		}
 
-         // 
-         viewAndViewModel.Item2.GameFinished += ViewModel_GameFinished;
-      }
+		private void ViewModel_GameFinished(object sender, EventArgs e) {
+			if (MessageBox.Show("Game over! Play a new game?", "Game over",
+				MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes) ==
+				MessageBoxResult.Yes) {
+				this.Close();
+			}
+			else {
+				Environment.Exit(0);
+			}
+		}
 
-      private void ViewModel_GameFinished(object sender, EventArgs e) {
-         if (MessageBox.Show("Game over! Play a new game?", "Game over",
-            MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes) ==
-            MessageBoxResult.Yes) {
-            this.Close();
-         }
-         else {
-            Environment.Exit(0);
-         }
-      }
-
-      private void UndoButton_Click(object sender, RoutedEventArgs e) {
-         (FindResource("ViewModel") as IGameViewModel).UndoMove();
-      }
-   }
+		private void UndoButton_Click(object sender, RoutedEventArgs e) {
+			(FindResource("ViewModel") as IGameViewModel).UndoMove();
+		}
+	}
 }

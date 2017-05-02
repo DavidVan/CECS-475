@@ -26,7 +26,7 @@ namespace Cecs475.BoardGames.Othello.View {
 		public Tuple<Control, IGameViewModel> CreateViewAndViewModel(NumberOfPlayers players) {
 			var view = new OthelloView();
 			var model = view.Model;
-         model.Players = players;
+			model.Players = players;
 			return new Tuple<Control, IGameViewModel>(view, model);
 		}
 	}

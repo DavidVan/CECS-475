@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Cecs475.BoardGames.ComputerOpponent {
-	public interface IGameAi {
-		IGameMove FindBestMove(IGameBoard b);
-	}
+   public interface IGameAi {
+      IGameMove FindBestMove(IGameBoard b);
+   }
 }
