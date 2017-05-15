@@ -55,11 +55,16 @@ namespace Cecs475.BoardGames.WpfApplication {
                WebClient client = new WebClient();
                await client.DownloadFileTaskAsync(game.Files[0].Url, "lib\\" + game.Files[0].FileName);
                await client.DownloadFileTaskAsync(game.Files[1].Url, "lib\\" + game.Files[1].FileName);
-               
             }
             GameChoiceWindow window = new GameChoiceWindow();
-            this.Hide();
             window.Show();
+            this.Close();
+         }
+      }
+
+      private void Window_MouseDown(object sender, MouseButtonEventArgs e) {
+         if (e.ChangedButton == MouseButton.Left) {
+            DragMove();
          }
       }
    }

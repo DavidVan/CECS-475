@@ -11,7 +11,8 @@
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         Background="YellowGreen"
-        Loaded="Window_Loaded">
+        Loaded="Window_Loaded"
+        MouseDown="Window_MouseDown">
     <Grid>
         <Label FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center">
             Loading games, please wait...
