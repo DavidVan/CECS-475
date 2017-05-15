@@ -6,6 +6,7 @@ using Cecs475.BoardGames;
 using Cecs475.BoardGames.View;
 using System;
 using Cecs475.BoardGames.ComputerOpponent;
+using System.Threading.Tasks;
 
 namespace Cecs475.BoardGames.Othello.View {
    public class OthelloSquare : INotifyPropertyChanged {
@@ -42,10 +43,10 @@ namespace Cecs475.BoardGames.Othello.View {
    }
 
    public class OthelloViewModel : INotifyPropertyChanged, IGameViewModel {
-      private const int MAX_AI_DEPTH = 6;
+      private const int MAX_AI_DEPTH = 7;
       private OthelloBoard mBoard;
       private ObservableCollection<OthelloSquare> mSquares;
-      private IGameAi mGameAi = new MinimaxAi(6);
+      private IGameAi mGameAi = new MinimaxAi(MAX_AI_DEPTH);
 
       public event PropertyChangedEventHandler PropertyChanged;
       public event EventHandler GameFinished;
@@ -104,7 +105,7 @@ namespace Cecs475.BoardGames.Othello.View {
          OnPropertyChanged(nameof(CanUndo));
       }
 
-      public void ApplyMove(BoardPosition position) {
+      public async Task ApplyMove(BoardPosition position) {
          var possMoves = mBoard.GetPossibleMoves() as IEnumerable<OthelloMove>;
          foreach (var move in possMoves) {
             if (move.Position.Equals(position)) {
@@ -112,14 +113,30 @@ namespace Cecs475.BoardGames.Othello.View {
                break;
             }
          }
-
+         RebindState();
          if (Players == NumberOfPlayers.One && !mBoard.IsFinished) {
-            var bestMove = mGameAi.FindBestMove(mBoard);
+
+            var bestMove = await Task.Run(() => mGameAi.FindBestMove(mBoard));
             if (bestMove != null) {
                mBoard.ApplyMove(bestMove);
+               RebindState();
             }
          }
 
+         if (mBoard.PassCount == 2) {
+            GameFinished?.Invoke(this, new EventArgs());
+         }
+
+         if (PossibleMoves.Count == 1 && PossibleMoves.First().Row == -1) {
+            CurrentPlayerMustPass?.Invoke(this, new EventArgs());
+         }
+
+         if (PossibleMoves.Count == 0 || mBoard.IsFinished) {
+            GameFinished?.Invoke(this, new EventArgs());
+         }
+      }
+
+      private void RebindState() {
          PossibleMoves = new HashSet<BoardPosition>(
             from OthelloMove m in mBoard.GetPossibleMoves()
             select m.Position
@@ -137,17 +154,6 @@ namespace Cecs475.BoardGames.Othello.View {
          OnPropertyChanged(nameof(BoardValue));
          OnPropertyChanged(nameof(CurrentPlayer));
          OnPropertyChanged(nameof(CanUndo));
-         if (mBoard.PassCount == 2) {
-            GameFinished?.Invoke(this, new EventArgs());
-         }
-
-         if (PossibleMoves.Count == 1 && PossibleMoves.First().Row == -1) {
-            CurrentPlayerMustPass?.Invoke(this, new EventArgs());
-         }
-
-         if (PossibleMoves.Count == 0 || mBoard.IsFinished) {
-            GameFinished?.Invoke(this, new EventArgs());
-         }
       }
 
       public ObservableCollection<OthelloSquare> Squares {

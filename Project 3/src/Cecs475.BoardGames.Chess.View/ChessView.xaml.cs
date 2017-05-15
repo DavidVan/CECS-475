@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Cecs475.BoardGames.View;
 
 namespace Cecs475.BoardGames.Chess.View {
    /// <summary>
@@ -24,6 +25,9 @@ namespace Cecs475.BoardGames.Chess.View {
       }
 
       private void Border_MouseEnter(object sender, MouseEventArgs e) {
+         if (!IsEnabled) {
+            return;
+         }
          Border b = sender as Border;
          var square = b.DataContext as ChessSquare;
          var vm = FindResource("vm") as ChessViewModel;
@@ -41,28 +45,39 @@ namespace Cecs475.BoardGames.Chess.View {
       }
 
       private void Border_MouseLeave(object sender, MouseEventArgs e) {
+         if (!IsEnabled) {
+            return;
+         }
          Border b = sender as Border;
          var square = b.DataContext as ChessSquare;
          square.IsHovered = false;
       }
 
-      private void Border_MouseUp(object sender, MouseButtonEventArgs e) {
+      private async void Border_MouseUp(object sender, MouseButtonEventArgs e) {
+         if (!IsEnabled) {
+            return;
+         }
          Border b = sender as Border;
          var square = b.DataContext as ChessSquare;
          var vm = FindResource("vm") as ChessViewModel;
-
+         IsEnabled = false;
          if (vm.SelectedSquare != null) {
             if (vm.PossibleMoves.Select(m => m.StartPosition).Contains(vm.SelectedSquare.Position) && vm.PossibleMoves.Select(m => m.EndPosition).Contains(square.Position)) {
                ChessMove move = new ChessMove(vm.SelectedSquare.Position, square.Position);
                square.IsHovered = false;
                vm.SelectedSquare.IsSelected = false;
-               vm.ApplyMove(move);
+               await vm.ApplyMove(move);
                vm.SelectedSquare = null;
                if (vm.PossibleMoves.Select(m => m.MoveType).Contains(ChessMoveType.PawnPromote)) {
-                  PromotionWindow window = new PromotionWindow(this);
-                  bool? result = window.ShowDialog();
-                  if (!result.GetValueOrDefault()) { // If result is false, execute this if statement.
-                     vm.ShowPromotionWindow = true; // User exited the pawn promotion window... We need a way to show it again!
+                  if (vm.Players == NumberOfPlayers.One && vm.CurrentPlayer == 2) {
+                     // Do nothing. Don't show dialog when AI is active.
+                  }
+                  else {
+                     PromotionWindow window = new PromotionWindow(this);
+                     bool? result = window.ShowDialog();
+                     if (!result.GetValueOrDefault()) { // If result is false, execute this if statement.
+                        vm.ShowPromotionWindow = true; // User exited the pawn promotion window... We need a way to show it again!
+                     }
                   }
                }
             }
@@ -89,7 +104,7 @@ namespace Cecs475.BoardGames.Chess.View {
                square.IsSelected = true;
             }
          }
-
+         IsEnabled = true;
       }
 
       public ChessViewModel Model {

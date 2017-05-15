@@ -127,6 +127,10 @@
       <Project>{35eba41e-9b1d-4366-bef6-d473f631df57}</Project>
       <Name>Cecs475.BoardGames.Chess.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Cecs475.BoardGames.ComputerOpponent\Cecs475.BoardGames.ComputerOpponent.csproj">
+      <Project>{aa92c604-216c-462a-afd1-b51acd4d7625}</Project>
+      <Name>Cecs475.BoardGames.ComputerOpponent</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Cecs475.BoardGames.Model\Cecs475.BoardGames.Model.csproj">
       <Project>{db6cb6d2-3aef-4671-873a-79c8ed63d4d5}</Project>
       <Name>Cecs475.BoardGames.Model</Name>
@@ -137,6 +141,9 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(TargetPath)" "$(ProjectDir)\..\Cecs475.BoardGames.WpfApplication\$(OutDir)\lib\"</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -23,6 +23,7 @@ namespace Cecs475.BoardGames.Chess.View {
       public Tuple<Control, IGameViewModel> CreateViewAndViewModel(NumberOfPlayers players) {
          var view = new ChessView();
          var model = view.Model;
+         model.Players = players;
          return new Tuple<Control, IGameViewModel>(view, model);
       }
    }

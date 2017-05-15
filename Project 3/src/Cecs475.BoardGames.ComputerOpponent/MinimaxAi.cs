@@ -29,10 +29,10 @@ namespace Cecs475.BoardGames.ComputerOpponent {
          // mMaxDepth is what the depthLeft should start at.
          // You are maximizing iff the board's current player is 1.
 
-         return FindBestMove(b, mMaxDepth, b.CurrentPlayer == 1).Move;
+         return FindBestMove(b, mMaxDepth, b.CurrentPlayer == 1, Int32.MinValue, Int32.MaxValue).Move;
       }
 
-      private static MinimaxBestMove FindBestMove(IGameBoard b, int depthLeft, bool maximize) {
+      private static MinimaxBestMove FindBestMove(IGameBoard b, int depthLeft, bool maximize, int alpha, int beta) {
          // Implement the minimax algorithm. 
          // Your first attempt will not use alpha-beta pruning. Once that works, 
          // implement the pruning as discussed in the project notes.
@@ -46,8 +46,22 @@ namespace Cecs475.BoardGames.ComputerOpponent {
          IGameMove bestMove = null;
          foreach (var move in b.GetPossibleMoves()) {
             b.ApplyMove(move);
-            int weight = FindBestMove(b, depthLeft - 1, !maximize).Weight;
+            int weight = FindBestMove(b, depthLeft - 1, !maximize, alpha, beta).Weight;
             b.UndoLastMove();
+
+            if (maximize && weight > alpha) {
+               alpha = weight;
+            }
+            else if (!maximize && weight < beta) {
+               beta = weight;
+            }
+            if (!(alpha < beta)) {
+               return new MinimaxBestMove {
+                  Weight = maximize ? beta : alpha,
+                  Move = bestMove
+               };
+            }
+
             if (maximize && weight > bestWeight) {
                bestWeight = weight;
                bestMove = move;

@@ -103,29 +103,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Cecs475.BoardGames.Chess.View\Cecs475.BoardGames.Chess.View.csproj">
-      <Project>{c55dd612-1d3e-4d90-8b6f-c4d00cf71a62}</Project>
-      <Name>Cecs475.BoardGames.Chess.View</Name>
+    <ProjectReference Include="..\Cecs475.BoardGames.ComputerOpponent\Cecs475.BoardGames.ComputerOpponent.csproj">
+      <Project>{aa92c604-216c-462a-afd1-b51acd4d7625}</Project>
+      <Name>Cecs475.BoardGames.ComputerOpponent</Name>
     </ProjectReference>
     <ProjectReference Include="..\Cecs475.BoardGames.Model\Cecs475.BoardGames.Model.csproj">
       <Project>{db6cb6d2-3aef-4671-873a-79c8ed63d4d5}</Project>
       <Name>Cecs475.BoardGames.Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Cecs475.BoardGames.Othello.Model\Cecs475.BoardGames.Othello.Model.csproj">
-      <Project>{dad487b8-26b5-4ef3-b0b3-98ab5f961fbc}</Project>
-      <Name>Cecs475.BoardGames.Othello.Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Cecs475.BoardGames.Othello.View\Cecs475.BoardGames.Othello.View.csproj">
-      <Project>{1e111143-a149-4085-a609-d7cd3a61a77a}</Project>
-      <Name>Cecs475.BoardGames.Othello.View</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Cecs475.BoardGames.TicTacToe.Model\Cecs475.BoardGames.TicTacToe.Model.csproj">
-      <Project>{d5adec66-11af-481a-bb08-0eb9a3480b68}</Project>
-      <Name>Cecs475.BoardGames.TicTacToe.Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Cecs475.BoardGames.TicTacToe.View\Cecs475.BoardGames.TicTacToe.View.csproj">
-      <Project>{f0047ab0-cc01-425f-ab58-f823065ceb06}</Project>
-      <Name>Cecs475.BoardGames.TicTacToe.View</Name>
     </ProjectReference>
     <ProjectReference Include="..\Cecs475.BoardGames.View\Cecs475.BoardGames.View.csproj">
       <Project>{06da1cf1-6ccb-477a-ae70-413693d01d6d}</Project>

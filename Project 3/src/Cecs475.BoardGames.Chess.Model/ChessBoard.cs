@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Cecs475.BoardGames.Chess {
@@ -121,7 +122,274 @@ namespace Cecs475.BoardGames.Chess {
       }
 
       public int Weight {
-         get; private set;
+         get {
+            int weight = 0;
+
+            int whiteScore = 0;
+            int blackScore = 0;
+
+            var whitePawns = GetPositionsOfPiece(ChessPieceType.Pawn, 1);
+            foreach (var pawn in whitePawns) {
+               whiteScore += (6 - pawn.Row);
+            }
+            var blackPawns = GetPositionsOfPiece(ChessPieceType.Pawn, 2);
+            foreach (var pawn in blackPawns) {
+               blackScore += (pawn.Row - 1);
+            }
+
+            var whiteKnights = GetPositionsOfPiece(ChessPieceType.Knight, 1);
+            var whiteBishops = GetPositionsOfPiece(ChessPieceType.Bishop, 1);
+
+            foreach (var pawn in GetPositionsOfPiece(ChessPieceType.Pawn, 1)) {
+               var threatenedByPawn = GetThreatenedByPawn(pawn);
+               foreach (var threatenedPos in threatenedByPawn) {
+                  foreach (var knightPos in whiteKnights) {
+                     if (threatenedPos.Equals(knightPos)) {
+                        whiteScore += 1;
+                     }
+                  }
+                  foreach (var bishopPos in whiteBishops) {
+                     if (threatenedPos.Equals(bishopPos)) {
+                        whiteScore += 1;
+                     }
+                  }
+               }
+            }
+
+            foreach (var knight in GetPositionsOfPiece(ChessPieceType.Knight, 1)) {
+               var threatenedByKnight = GetThreatenedByKnight(knight);
+               foreach (var threatenedPos in threatenedByKnight) {
+                  foreach (var knightPos in whiteKnights) {
+                     if (threatenedPos.Equals(knightPos)) {
+                        whiteScore += 1;
+                     }
+                  }
+                  foreach (var bishopPos in whiteBishops) {
+                     if (threatenedPos.Equals(bishopPos)) {
+                        whiteScore += 1;
+                     }
+                  }
+               }
+            }
+
+            foreach (var bishop in GetPositionsOfPiece(ChessPieceType.Bishop, 1)) {
+               var threatenedByBishop = GetThreatenedByBishop(bishop);
+               foreach (var threatenedPos in threatenedByBishop) {
+                  foreach (var knightPos in whiteKnights) {
+                     if (threatenedPos.Equals(knightPos)) {
+                        whiteScore += 1;
+                     }
+                  }
+                  foreach (var bishopPos in whiteBishops) {
+                     if (threatenedPos.Equals(bishopPos)) {
+                        whiteScore += 1;
+                     }
+                  }
+               }
+            }
+
+            var whiteRookKing = GetPositionsOfPiece(ChessPieceType.RookKing, 1);
+            var whiteRookQueen = GetPositionsOfPiece(ChessPieceType.RookQueen, 1);
+            var whiteRookPawn = GetPositionsOfPiece(ChessPieceType.RookPawn, 1);
+            var allWhiteRooks = whiteRookKing.Union(whiteRookQueen).Union(whiteRookPawn);
+            foreach (var rook in allWhiteRooks) {
+               var threatenedByRook = GetThreatenedByRook(rook);
+               foreach (var threatenedPos in threatenedByRook) {
+                  foreach (var knightPos in whiteKnights) {
+                     if (threatenedPos.Equals(knightPos)) {
+                        whiteScore += 1;
+                     }
+                  }
+                  foreach (var bishopPos in whiteBishops) {
+                     if (threatenedPos.Equals(bishopPos)) {
+                        whiteScore += 1;
+                     }
+                  }
+               }
+            }
+
+            var whiteQueen = GetPositionsOfPiece(ChessPieceType.Queen, 1);
+            foreach (var queen in whiteQueen) {
+               var threatenedByQueen = GetThreatenedByQueen(queen);
+               foreach (var threatenedPos in threatenedByQueen) {
+                  foreach (var knightPos in whiteKnights) {
+                     if (threatenedPos.Equals(knightPos)) {
+                        whiteScore += 1;
+                     }
+                  }
+                  foreach (var bishopPos in whiteBishops) {
+                     if (threatenedPos.Equals(bishopPos)) {
+                        whiteScore += 1;
+                     }
+                  }
+               }
+            }
+
+            var whiteKing = GetPositionsOfPiece(ChessPieceType.King, 1);
+            foreach (var king in whiteKing) {
+               var threatenedByKing = GetThreatenedByKing(king);
+               foreach (var threatenedPos in threatenedByKing) {
+                  foreach (var knightPos in whiteKnights) {
+                     if (threatenedPos.Equals(knightPos)) {
+                        whiteScore += 1;
+                     }
+                  }
+                  foreach (var bishopPos in whiteBishops) {
+                     if (threatenedPos.Equals(bishopPos)) {
+                        whiteScore += 1;
+                     }
+                  }
+               }
+            }
+
+            var blackKnights = GetPositionsOfPiece(ChessPieceType.Knight, 2);
+            var blackBishops = GetPositionsOfPiece(ChessPieceType.Bishop, 2);
+
+            foreach (var pawn in GetPositionsOfPiece(ChessPieceType.Pawn, 2)) {
+               var threatenedByPawn = GetThreatenedByPawn(pawn);
+               foreach (var threatenedPos in threatenedByPawn) {
+                  foreach (var knightPos in blackKnights) {
+                     if (threatenedPos.Equals(knightPos)) {
+                        blackScore += 1;
+                     }
+                  }
+                  foreach (var bishopPos in blackBishops) {
+                     if (threatenedPos.Equals(bishopPos)) {
+                        blackScore += 1;
+                     }
+                  }
+               }
+            }
+
+            foreach (var knight in GetPositionsOfPiece(ChessPieceType.Knight, 2)) {
+               var threatenedByKnight = GetThreatenedByKnight(knight);
+               foreach (var threatenedPos in threatenedByKnight) {
+                  foreach (var knightPos in blackKnights) {
+                     if (threatenedPos.Equals(knightPos)) {
+                        blackScore += 1;
+                     }
+                  }
+                  foreach (var bishopPos in blackBishops) {
+                     if (threatenedPos.Equals(bishopPos)) {
+                        blackScore += 1;
+                     }
+                  }
+               }
+            }
+
+            foreach (var bishop in GetPositionsOfPiece(ChessPieceType.Bishop, 2)) {
+               var threatenedByBishop = GetThreatenedByBishop(bishop);
+               foreach (var threatenedPos in threatenedByBishop) {
+                  foreach (var knightPos in blackKnights) {
+                     if (threatenedPos.Equals(knightPos)) {
+                        blackScore += 1;
+                     }
+                  }
+                  foreach (var bishopPos in blackBishops) {
+                     if (threatenedPos.Equals(bishopPos)) {
+                        blackScore += 1;
+                     }
+                  }
+               }
+            }
+
+            var blackRookKing = GetPositionsOfPiece(ChessPieceType.RookKing, 2);
+            var blackRookQueen = GetPositionsOfPiece(ChessPieceType.RookQueen, 2);
+            var blackRookPawn = GetPositionsOfPiece(ChessPieceType.RookPawn, 2);
+            var allBlackRooks = blackRookKing.Union(blackRookQueen).Union(blackRookPawn);
+            foreach (var rook in allBlackRooks) {
+               var threatenedByRook = GetThreatenedByRook(rook);
+               foreach (var threatenedPos in threatenedByRook) {
+                  foreach (var knightPos in blackKnights) {
+                     if (threatenedPos.Equals(knightPos)) {
+                        blackScore += 1;
+                     }
+                  }
+                  foreach (var bishopPos in blackBishops) {
+                     if (threatenedPos.Equals(bishopPos)) {
+                        blackScore += 1;
+                     }
+                  }
+               }
+            }
+
+            var blackQueen = GetPositionsOfPiece(ChessPieceType.Queen, 2);
+            foreach (var queen in blackQueen) {
+               var threatenedByQueen = GetThreatenedByQueen(queen);
+               foreach (var threatenedPos in threatenedByQueen) {
+                  foreach (var knightPos in blackKnights) {
+                     if (threatenedPos.Equals(knightPos)) {
+                        blackScore += 1;
+                     }
+                  }
+                  foreach (var bishopPos in blackBishops) {
+                     if (threatenedPos.Equals(bishopPos)) {
+                        blackScore += 1;
+                     }
+                  }
+               }
+            }
+
+            var blackKing = GetPositionsOfPiece(ChessPieceType.King, 2);
+            foreach (var king in blackKing) {
+               var threatenedByKing = GetThreatenedByKing(king);
+               foreach (var threatenedPos in threatenedByKing) {
+                  foreach (var knightPos in blackKnights) {
+                     if (threatenedPos.Equals(knightPos)) {
+                        blackScore += 1;
+                     }
+                  }
+                  foreach (var bishopPos in blackBishops) {
+                     if (threatenedPos.Equals(bishopPos)) {
+                        blackScore += 1;
+                     }
+                  }
+               }
+            }
+
+            var whiteThreatened = GetThreatenedPositions(1);
+            foreach (var pos in whiteThreatened) {
+               if (blackKnights.Contains(pos)) {
+                  whiteScore += 1;
+               }
+               if (blackBishops.Contains(pos)) {
+                  whiteScore += 1;
+               }
+               if (allBlackRooks.Contains(pos)) {
+                  whiteScore += 2;
+               }
+               if (blackQueen.Contains(pos)) {
+                  whiteScore += 5;
+               }
+               if (blackKing.Contains(pos)) {
+                  whiteScore += 4;
+               }
+            }
+
+            var blackThreatened = GetThreatenedPositions(2);
+            foreach (var pos in blackThreatened) {
+               if (whiteKnights.Contains(pos)) {
+                  blackScore += 1;
+               }
+               if (whiteBishops.Contains(pos)) {
+                  blackScore += 1;
+               }
+               if (allWhiteRooks.Contains(pos)) {
+                  blackScore += 2;
+               }
+               if (whiteQueen.Contains(pos)) {
+                  blackScore += 5;
+               }
+               if (whiteKing.Contains(pos)) {
+                  blackScore += 4;
+               }
+            }
+
+            Debug.WriteLine("White Score: " + whiteScore + " Black Score: " + blackScore + " Value: " + Value);
+            weight = whiteScore - blackScore + Value;
+
+            return weight;
+         }
       }
 
       public bool IsFinished {
