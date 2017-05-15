@@ -28,9 +28,11 @@ namespace Cecs475.BoardGames.WpfApplication {
          string currentDirectory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location); // Get the location of our program
          string libFolder = Path.Combine(currentDirectory, "lib"); // We are looking for the "lib" folder
          string[] files = Directory.GetFiles(libFolder, "*.dll"); // Get all .dll files
+         var fileNames = files.Select(Path.GetFileNameWithoutExtension);
 
-         foreach (var dll in files) {
-            Assembly.LoadFrom(dll);
+         foreach (var dll in fileNames) {
+            string stronglyNamedDLL = dll + ", Version=1.0.0.0, Culture=neutral, PublickeyToken=68e71c13048d452a";
+            Assembly.Load(stronglyNamedDLL);
          }
 
          Type GameType = typeof(IGameType);
